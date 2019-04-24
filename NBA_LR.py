@@ -12,65 +12,63 @@ import matplotlib.pyplot as plt
 # CSV path
 CSV_PATH = "/Users/khoatran/Desktop/Repositories/NBA_MVP_PREDICTOR/NBA_Data.csv"
 
-def main():
-    # Load Data
-    dataset = pd.read_csv(CSV_PATH)
-    print "Observation Count: ", len(dataset)
 
-    # Print top 10 data using pandas lib
-    # to test if data has been loaded successfully
-    print dataset.head(10)
+# Load Data
+dataset = pd.read_csv(CSV_PATH)
+print "Observation Count: ", len(dataset)
 
-    # Extract column names
-    column_names = list(dataset.columns.values)
-    print "Dataset Column Names: {column_names}".format(column_names=column_names)
+# Print top 10 data using pandas lib
+# to test if data has been loaded successfully
+print dataset.head(10)
 
-    # Selecting features
-    # Not including ...Team, Team wins, position, etc
+# Extract column names
+column_names = list(dataset.columns.values)
+print "Dataset Column Names: {column_names}".format(column_names=column_names)
 
-    features = ['MIN','PTS','FG_PCT','FG3_PCT','FT_PCT','REB','AST',\
-        'STL','BLK','TOV','PER','OFFRTG','DEFRTG','NETRTG','AST_PCT',\
-        'AST_TO_TO','AST_RATIO','TO_RATIO','EFG','TS',\
-        'USG_RATE','WIN_SHARE']
-    target = 'PTS_WON'
-    # splitting training and testing data (70:30)
-    train_x, test_x, train_y, test_y = train_test_split(dataset[features], dataset[target], train_size=0.7)
-    
-    print "train_x size: ", len(train_x)
-    print "train_y size: ", len(train_y)
- 
-    print "test_x size: ", len(test_x)
-    print "test_y size: ", len(test_y)
-    
-    # Fit model
-    LR_model = LinearRegression()
-    LR_model.fit(train_x,train_y)
+# Selecting features
+# Not including ...Team, Team wins, position, etc
 
-    # Calculate Accuracy
-    LR_accuracy_train = LR_model.score(train_x, train_y)
-    LR_accuracy_test  = LR_model.score(test_x, test_y)
-    print "Train Accuracy: ", LR_accuracy_train
-    print "Test Accuracy : ", LR_accuracy_test
+features = ['Team Win Percentage','MIN','PTS','FG_PCT','FG3_PCT','FT_PCT','REB','AST',\
+    'STL','BLK','TOV','PER','OFFRTG','DEFRTG','NETRTG','AST_PCT',\
+    'AST_TO_TO','AST_RATIO','TO_RATIO','EFG','TS',\
+    'USG_RATE','WIN_SHARE']
+target = 'PTS_WON'
+# splitting training and testing data (70:30)
+train_x, test_x, train_y, test_y = train_test_split(dataset[features], dataset[target], train_size=0.7)
 
-    # Make predictions using the testing set
-    y_pred = LR_model.predict(test_x)
+print "train_x size: ", len(train_x)
+print "train_y size: ", len(train_y)
 
-    # The coefficients
-    print('Coefficients: \n', LR_model.coef_)
-    # The mean squared error
-    print("Mean squared error: %.2f"
-          % mean_squared_error(test_y, y_pred))
-    # Explained variance score: 1 is perfect prediction
-    print('Variance score: %.2f' % r2_score(test_y, y_pred))
+print "test_x size: ", len(test_x)
+print "test_y size: ", len(test_y)
 
-    # # Plot outputs
-    # plt.scatter(test_x, test_y,  color='black')
-    # plt.plot(test_x, y_pred, color='blue', linewidth=3)
+# Fit model
+LR_model = LinearRegression()
+LR_model.fit(train_x,train_y)
 
-    # plt.xticks(())
-    # plt.yticks(())
+# Calculate Accuracy
+LR_accuracy_train = LR_model.score(train_x, train_y)
+LR_accuracy_test  = LR_model.score(test_x, test_y)
+print "Train Accuracy: ", LR_accuracy_train
+print "Test Accuracy : ", LR_accuracy_test
 
-    # plt.show()
+# Make predictions using the testing set
+y_pred = LR_model.predict(test_x)
 
-if __name__ == "__main__":
-    main()
+# The coefficients
+print('Coefficients: \n', LR_model.coef_)
+# The mean squared error
+print("Mean squared error: %.2f"
+      % mean_squared_error(test_y, y_pred))
+# Explained variance score: 1 is perfect prediction
+print('Variance score: %.2f' % r2_score(test_y, y_pred))
+
+# # Plot outputs
+# plt.scatter(test_x, test_y,  color='black')
+# plt.plot(test_x, y_pred, color='blue', linewidth=3)
+
+# plt.xticks(())
+# plt.yticks(())
+
+# plt.show()
+
