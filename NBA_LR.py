@@ -19,11 +19,11 @@ def main():
 
     # Print top 10 data using pandas lib
     # to test if data has been loaded successfully
-    print dataset.head(10)
+    # print dataset.head(10)
 
     # Extract column names
     column_names = list(dataset.columns.values)
-    print "Dataset Column Names: {column_names}".format(column_names=column_names)
+    # print "Dataset Column Names: {column_names}".format(column_names=column_names)
 
     # Selecting features
     # Not including ...Team, position, etc
@@ -61,10 +61,10 @@ def main():
     LR_coef = LR_model.coef_
     print 'Coefficients:'
     print LR_coef
-    i = 0
-    while(i<len(features)):
-        print str(features[i])+ "\t" + str(LR_coef[i])
-        i+=1
+    # i = 0
+    # while(i<len(features)):
+    #     print str(features[i])+ "\t" + str(LR_coef[i])
+    #     i+=1
 
     # The mean squared error
     print("Mean squared error: %.2f"
